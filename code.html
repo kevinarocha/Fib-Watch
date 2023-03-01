@@ -2,7 +2,7 @@
 <html lang="en" class="h-100">
 
 <head>
-    <title>App Name: A Coding Project By Kevin Rocha</title>
+    <title>HONDO: A Coding Project By Kevin Rocha</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,6 +12,11 @@
         integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
         
     <script src="https://kit.fontawesome.com/5db21ba9c6.js" crossorigin="anonymous"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Genos:ital,wght@0,100;1,500&display=swap" rel="stylesheet">
+    
     
     <link href = "css/site.css" rel = "stylesheet">
     <link href = "css/prism.css" rel = "stylesheet">
@@ -23,8 +28,8 @@
 <!-- ==== Nav Section ==== -->
 <nav class="navbar navbar-expand-md navbar-dark fixed-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#"><img src = "img/img template.jpg" class = "d-inline-block align-text-top"
-             width = "30" height = "24"> APP NAME</a>
+        <a class="navbar-brand logoFont" href="#"><img src = "img/img template.jpg" class = "d-inline-block align-text-top"
+             width = "30" height = "24"> HONDO</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
             aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -54,21 +59,97 @@
     <!-- ==== Main Section ==== -->
     <main class="flex-shrink-0">
         <div class = "contianer py-5 px-5 mt-5">
-           <h2 class = "border-1 border-bottom border-dark">The Code for APP NAME.</h2>
+           <h2 class = "border-1 border-bottom border-dark">The Code for HONDO.</h2>
             <div class = "row row-cols-1 row-cols-lg-2">
                 <div class = "col-lg-8">
                      <pre class = "line-numbers"><code class = "language-javascript">
-                    // Call Hello World
-                    function helloWorld(){
-                    alert("Hello World");
-                    }
+                        // get the values from the Page
+                        //starts or controller function
+                        function getValues(){
+                            //get values from the page
+                            let startValue = document.getElementById("startValue").value;
+                            let endValue = document.getElementById("endValue").value;
+                            let numbers = [];
+                        
+                            //We need to validate our input
+                            //parse into Integers
+                            startValue = parseInt(startValue);
+                            endValue = parseInt(endValue);
+                        
+                        
+                            if(Number.isInteger(startValue) && Number.isInteger(endValue)){
+                                //we call generateNumbers
+                                numbers = generateNumbers(startValue, endValue);
+                                //we call displayNumbers
+                                displayNumbers(numbers);
+                        
+                            }else{
+                                alert("You must enter integers");
+                            }
+                        
+                            
+                        }
+                        
+                        
+                        // generate numbers from startvalue to the endValue
+                        //logic functions(s)
+                        function generateNumbers(sValue, eValue){
+                            let numbers = [];
+                            
+                            // we want to get all numbers from start to end
+                            
+                            for(let index = sValue; index <= eValue; index++){
+                                // this will execute in a loop until index = eValue
+                                numbers.push(index);
+                            }
+                            
+                            return numbers;
+                        }
+                        
+                        
+                        
+                        //display the numbers and mark even numbers bold
+                        //display or view functions
+                        function displayNumbers(numbers){
+                        
+                            let templateRows = "";
+                        
+                            for (let index = 0; index < numbers.length; index++) {
+                                
+                                let className = "even";
+                                let number = numbers[index];
+                        
+                                if(number % 2 == 0){
+                                    className = "even";
+                                }
+                                else{
+                                    className = "odd";
+                                }
+                                // This does render correctly with Prisim see the source
+                                templateRows += `<tr><td class="${className}" >${number}</td></tr>`;
+                            }
+                        
+                            document.getElementById("results").innerHTML = templateRows;
+                        
+                        }
                     </code>
                     </pre>
                 </div>
                 <div class = "col-lg-4">
-                    <p>The Code is structured in one function.</p>
-                    <h5>Hello World </h5>
-                    <p>Hello World is a function that displays an alert with a message of "Hello World"</p>
+                    <p>The Code is structured in three functions.</p>
+                    <h5>getValues </h5>
+                    <p>getValues is a function that gets the users desired input for the starting and end value.
+                        We set those numbers in an array. We verify that both starting and ending numbers are 
+                        in fact an integer and not a string. We then call the generate numbers function if all is
+                        working as expected, then the displayNumbers function to show on the UI. </p>
+
+                        <h5>generateNumbers </h5>
+                        <p>generateNumbers is a function that sets an array and increments from the starting value 
+                            to the end value and push all the numbers into the array to be displayed. </p>
+
+                            <h5>displayNumbers </h5>
+                            <p>generateNumbers is a function that sets an array and increments from the starting value 
+                                to the end value and push all the numbers into the array to be displayed. </p>
                 </div>
             </div>
         </div>
