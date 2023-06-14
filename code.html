@@ -2,7 +2,7 @@
 <html lang="en" class="h-100">
 
 <head>
-    <title>HONDO: A Coding Project By Kevin Rocha</title>
+    <title>FIB WATCH: A Coding Project By Kevin Rocha</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -28,8 +28,8 @@
 <!-- ==== Nav Section ==== -->
 <nav class="navbar navbar-expand-md navbar-dark fixed-top">
     <div class="container-fluid">
-        <a class="navbar-brand logoFont" href="#"><img src = "img/img template.jpg" class = "d-inline-block align-text-top"
-             width = "30" height = "24"> HONDO</a>
+        <a class="navbar-brand logoFont" href="#"><img src = "img/img template.png" class = "d-inline-block align-text-top"
+             width = "30" height = "24"> FIB WATCH</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
             aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -59,7 +59,7 @@
     <!-- ==== Main Section ==== -->
     <main class="flex-shrink-0">
         <div class = "contianer py-5 px-5 mt-5">
-           <h2 class = "border-1 border-bottom border-dark">The Code for HONDO.</h2>
+           <h2 class = "border-1 border-bottom border-dark">The Code for FIB WATCH.</h2>
             <div class = "row row-cols-1 row-cols-lg-2">
                 <div class = "col-lg-8">
                      <pre class = "line-numbers"><code class = "language-javascript">
@@ -67,19 +67,17 @@
                         //starts or controller function
                         function getValues(){
                             //get values from the page
-                            let startValue = document.getElementById("startValue").value;
                             let endValue = document.getElementById("endValue").value;
                             let numbers = [];
                         
                             //We need to validate our input
                             //parse into Integers
-                            startValue = parseInt(startValue);
                             endValue = parseInt(endValue);
                         
                         
-                            if(Number.isInteger(startValue) && Number.isInteger(endValue)){
+                            if(Number.isInteger(endValue)){
                                 //we call generateNumbers
-                                numbers = generateNumbers(startValue, endValue);
+                                numbers = generateNumbers(endValue);
                                 //we call displayNumbers
                                 displayNumbers(numbers);
                         
@@ -90,17 +88,39 @@
                             
                         }
                         
+                        // generates the fibonacci sequence in order when called upon
+                        var fibGenerator = function*() {
+                            let n1=0,n2=1,i=0;
+                            while(true){
+                                if(i==0){
+                                    i++;
+                                    yield 0;
+                                }
+                                if(i==1){
+                                    i++;
+                                    yield 1;
+                                }
+                                let ans = n1 + n2;
+                                n1 = n2;
+                                n2 = ans;
+                                yield ans;
+                            }
+                         };
+                        
+                        
                         
                         // generate numbers from startvalue to the endValue
                         //logic functions(s)
-                        function generateNumbers(sValue, eValue){
+                        function generateNumbers(eValue){
                             let numbers = [];
-                            
+                            const gen = fibGenerator();
                             // we want to get all numbers from start to end
                             
-                            for(let index = sValue; index <= eValue; index++){
+                            for(let index = 0; index <= eValue; index++){
                                 // this will execute in a loop until index = eValue
-                                numbers.push(index);
+                                
+                                //numbers.push(index);
+                                numbers.push(gen.next().value);
                             }
                             
                             return numbers;
@@ -108,7 +128,6 @@
                         
                         
                         
-                        //display the numbers and mark even numbers bold
                         //display or view functions
                         function displayNumbers(numbers){
                         
@@ -116,16 +135,10 @@
                         
                             for (let index = 0; index < numbers.length; index++) {
                                 
-                                let className = "even";
-                                let number = numbers[index];
+                                // sets the font 
+                                let className = "set";
+                                 let number = numbers[index];
                         
-                                if(number % 2 == 0){
-                                    className = "even";
-                                }
-                                else{
-                                    className = "odd";
-                                }
-                                // This does render correctly with Prisim see the source
                                 templateRows += `<tr><td class="${className}" >${number}</td></tr>`;
                             }
                         
@@ -136,20 +149,25 @@
                     </pre>
                 </div>
                 <div class = "col-lg-4">
-                    <p>The Code is structured in three functions.</p>
+                    <p>The Code is structured in four functions.</p>
                     <h5>getValues </h5>
-                    <p>getValues is a function that gets the users desired input for the starting and end value.
-                        We set those numbers in an array. We verify that both starting and ending numbers are 
-                        in fact an integer and not a string. We then call the generate numbers function if all is
-                        working as expected, then the displayNumbers function to show on the UI. </p>
+                    <p>getValues is a function that gets the users value to stop displaying the fibbonacci sequence. It disallows any letters in the input. 
+                        It generates the numbers based on the amount of numbers inputted by the user and calls the displayNumbers method after calling the generateNumbers method. </p>
 
-                        <h5>generateNumbers </h5>
-                        <p>generateNumbers is a function that sets an array and increments from the starting value 
-                            to the end value and push all the numbers into the array to be displayed. </p>
+                        
+                            <h5>fibGenerator </h5>
+                        <p>fibGenerator is a function that mathematically calculates the fibbonacci sequence in order and returns the numbers individually 
+                            everytime it is called upon.  </p>
+                            
+                            <h5>generateNumbers </h5>
+                        <p>generateNumbers is a function that sets an array and generates the fibbonacci sequence by calling the fibGenerator 
+                            method and placing it into the array and loops until the loop reaches the same number as the user inputted.  </p>
+                            
 
                             <h5>displayNumbers </h5>
-                            <p>generateNumbers is a function that sets an array and increments from the starting value 
-                                to the end value and push all the numbers into the array to be displayed. </p>
+                            <p>displayNumbers  is a function that loops by the size of numbers requested by the user 
+                                and displays each number inside the array in string format. 
+                            </p>
                 </div>
             </div>
         </div>
@@ -159,10 +177,10 @@
         <div class="container-fluid">
             <div class = "row row-cols-1 row-cols-lg-3 gy-2">
                 <div class = "col order-last order-lg-first text-light">
-                    <div><span class="text-muted">&copy;2023</span> Kevin Rocha | kevinrocha3999@yahoo.com</div>
+                    <div><span class="text-muted">&copy;2023</span> Kevin Rocha | </div>
                 </div>
                 <div class = "col d-flex align-items-center justify-content-start justify-content-lg-center">
-                    <img src = "img/img template.jpg" alt = "Kevin Rocha Logo" height="24">
+                    <img src = "img/img template.png" alt = "Kevin Rocha Logo" height="24">
                 </div>
                 <div class = "col d-flex align items-center justify-content-start justify-content-lg-end">
                     <div class = "row">

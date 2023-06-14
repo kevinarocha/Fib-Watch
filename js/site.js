@@ -2,19 +2,17 @@
 //starts or controller function
 function getValues(){
     //get values from the page
-    let startValue = document.getElementById("startValue").value;
     let endValue = document.getElementById("endValue").value;
     let numbers = [];
 
     //We need to validate our input
     //parse into Integers
-    startValue = parseInt(startValue);
     endValue = parseInt(endValue);
 
 
-    if(Number.isInteger(startValue) && Number.isInteger(endValue)){
+    if(Number.isInteger(endValue)){
         //we call generateNumbers
-        numbers = generateNumbers(startValue, endValue);
+        numbers = generateNumbers(endValue);
         //we call displayNumbers
         displayNumbers(numbers);
 
@@ -25,17 +23,39 @@ function getValues(){
     
 }
 
+// generates the fibonacci sequence in order when called upon
+var fibGenerator = function*() {
+    let n1=0,n2=1,i=0;
+    while(true){
+        if(i==0){
+            i++;
+            yield 0;
+        }
+        if(i==1){
+            i++;
+            yield 1;
+        }
+        let ans = n1 + n2;
+        n1 = n2;
+        n2 = ans;
+        yield ans;
+    }
+ };
+
+
 
 // generate numbers from startvalue to the endValue
 //logic functions(s)
-function generateNumbers(sValue, eValue){
+function generateNumbers(eValue){
     let numbers = [];
-    
+    const gen = fibGenerator();
     // we want to get all numbers from start to end
     
-    for(let index = sValue; index <= eValue; index++){
+    for(let index = 0; index <= eValue; index++){
         // this will execute in a loop until index = eValue
-        numbers.push(index);
+        
+        //numbers.push(index);
+        numbers.push(gen.next().value);
     }
     
     return numbers;
@@ -43,7 +63,6 @@ function generateNumbers(sValue, eValue){
 
 
 
-//display the numbers and mark even numbers bold
 //display or view functions
 function displayNumbers(numbers){
 
@@ -51,15 +70,9 @@ function displayNumbers(numbers){
 
     for (let index = 0; index < numbers.length; index++) {
         
-        let className = "even";
-        let number = numbers[index];
-
-        if(number % 2 == 0){
-            className = "even";
-        }
-        else{
-            className = "odd";
-        }
+        // sets the font 
+        let className = "set";
+         let number = numbers[index];
 
         templateRows += `<tr><td class="${className}" >${number}</td></tr>`;
     }
